@@ -1,19 +1,18 @@
 package com.reflection.app;
 
-import com.homework.reflection.lib.PropertyInitializer;
-
-import java.io.File;
-import java.io.FileNotFoundException;
+import com.reflection.lib.PropertyInitializer;
+import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.Properties;
 
 public class Main {
 
     public static void main(String[] args) {
         AppProperties a;
-        PropertyInitializer<AppProperties> prop = new PropertyInitializer<>();
-        try {
-            a = prop.initProperties(AppProperties.class, new File("src/main/resources/file.properties"));
+        try(FileReader fl = new FileReader(args[0])) {
+            Properties prop = new Properties();
+            prop.load(fl);
+            a = PropertyInitializer.initClass(AppProperties.class, prop);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

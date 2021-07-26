@@ -1,6 +1,7 @@
 package com.reflection.app;
 
-import com.homework.reflection.annotations.PropertyKey;
+
+import com.reflection.annotations.PropertyKey;
 
 public class AppProperties {
 

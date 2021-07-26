@@ -1,36 +1,19 @@
 package com.reflection.lib;
 
-import com.homework.reflection.annotations.PropertyKey;
-import com.homework.reflection.app.AppProperties;
-
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import com.reflection.annotations.PropertyKey;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Properties;
 
-public class PropertyInitializer<T> {
-    private Properties properties;
-    private Class initClass;
-    private T initClassObject;
+public class PropertyInitializer {
 
-    public T initProperties(Class<T> initClass, File propertyFile) throws IOException {
-        this.initClass = initClass;
-        this.properties = new Properties();
-        try(var fileReader = new FileReader(propertyFile)){
-            properties.load(fileReader);
-        }
+    public static <T> T initClass(Class initClass, Properties properties) {
+        Object initClassObject;
         try {
             initClassObject = initClass.getConstructor().newInstance();
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
-        initClass();
-        return initClassObject;
-    }
-
-    private void initClass() {
         String propValue;
         for (Field field : initClass.getFields()) {
             if (field.isAnnotationPresent(PropertyKey.class)) {
@@ -38,11 +21,12 @@ public class PropertyInitializer<T> {
                 if (propValue == null) continue;
             } else
                 continue;
-            initField(field, propValue);
+            initField(field, propValue, initClassObject);
         }
+        return (T)initClassObject;
     }
 
-    private void initField(Field field, String propertyValue) {
+    private static void initField(Field field, String propertyValue, Object initClassObject) {
         try {
             Class<?> fieldType = field.getType();
             if (fieldType == String.class) {
