@@ -19,10 +19,10 @@ public class Group {
     @OneToMany(mappedBy = "group")
     private Set<Lesson> lesson;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "group")
+    @OneToMany(mappedBy = "group")
     private Set<Student> students;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "faculty_id", referencedColumnName = "id")
     private Faculty faculty;
 

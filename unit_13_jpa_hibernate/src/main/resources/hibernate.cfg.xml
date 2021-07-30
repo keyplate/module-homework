@@ -31,9 +31,5 @@
         <mapping class="com.studentaccounting.entities.Lesson"/>
         <mapping class="com.studentaccounting.entities.Topic"/>
 
-
-
-
-
     </session-factory>
 </hibernate-configuration>

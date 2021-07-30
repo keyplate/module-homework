@@ -17,7 +17,7 @@ public class Topic {
     private Long id;
 
     private String name;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "topic")
+    @OneToMany(mappedBy = "topic")
     private Set<Lesson> lessons;
 
     protected Topic() {}

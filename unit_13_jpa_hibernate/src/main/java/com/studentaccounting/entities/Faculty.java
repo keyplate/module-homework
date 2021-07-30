@@ -1,4 +1,5 @@
 package com.studentaccounting.entities;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -6,7 +7,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name="faculty")
+@Table(name = "faculty")
 @Getter
 @Setter
 public class Faculty {
@@ -16,13 +17,13 @@ public class Faculty {
     private Long id;
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "faculty")
+    @OneToMany(mappedBy = "faculty")
     private Set<Group> groups;
 
-    protected Faculty() {}
+    protected Faculty() {
+    }
 
     public Faculty(String name) {
-        this.id = id;
         this.name = name;
     }
 }

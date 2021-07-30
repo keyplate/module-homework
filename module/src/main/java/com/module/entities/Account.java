@@ -1,11 +1,21 @@
 package com.module.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
 
-@Entity(name="account")
+import javax.persistence.*;
+
+@Entity
+@Table(name = "account")
+@Getter
+@Setter
 public class Account {
+
     @Id
+    @GeneratedValue(generator = "bla")
     private Long id;
-    private Long ownerId;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 }
