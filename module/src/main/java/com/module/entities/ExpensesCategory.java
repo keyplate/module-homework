@@ -9,9 +9,10 @@ import javax.persistence.*;
 @Table(name = "expenses_category")
 @Getter
 @Setter
-public class ExpensesCategory {
+public class ExpensesCategory extends OperationCategory{
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -20,4 +21,8 @@ public class ExpensesCategory {
 
 
     protected ExpensesCategory() {}
+
+    public ExpensesCategory(Operation operation) {
+        this.operation = operation;
+    }
 }

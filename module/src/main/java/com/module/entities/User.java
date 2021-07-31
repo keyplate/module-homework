@@ -3,22 +3,21 @@ package com.module.entities;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "user")
+@Table(name = "usr")
 @Getter
 @Setter
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String email;
 
-    @OneToMany(mappedBy = "user")
-    private Set<User> users;
+    @OneToMany(mappedBy = "usr")
+    private List<Account> accounts;
 }
