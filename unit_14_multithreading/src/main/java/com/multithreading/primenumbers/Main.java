@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
-        var listOfNumbers = new ArrayList();
+        var listOfNumbers = new ArrayList<Integer>();
         var rand = new Random();
         for (int i = 0; i < Integer.parseInt(args[0]); i++) {
             listOfNumbers.add(Math.abs(rand.nextInt()%10));
