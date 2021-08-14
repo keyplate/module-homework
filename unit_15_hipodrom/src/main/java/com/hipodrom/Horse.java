@@ -4,17 +4,16 @@ import java.util.Random;
 
 
 public class Horse implements Runnable {
-    private long distance;
-
-    public Horse(long distance, int numberOfHorse) {
-        this.distance = distance;
+    private Hippodrome hippodrome;
+    public Horse(int numberOfHorse, Hippodrome hippodrome) {
         Thread.currentThread().setName(String.valueOf(numberOfHorse));
+        this.hippodrome = hippodrome;
     }
 
     @Override
     public void run() {
         Random rand = new Random();
-        for (int i = 0; i < distance;) {
+        for (int i = 0; i < 1000;) {
             i += rand.nextInt()%100+100;
             if(rand.nextBoolean()) {
                 try {
@@ -24,6 +23,6 @@ public class Horse implements Runnable {
                 }
             }
         }
-        Hippodrome.finish(Thread.currentThread().getName());
+        hippodrome.finish(Thread.currentThread().getName());
     }
 }
