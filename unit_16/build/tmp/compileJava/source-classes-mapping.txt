@@ -1,2 +1,0 @@
-com/servlet/unit_16/HelloServlet.java
- com.servlet.unit_16.HelloServlet
