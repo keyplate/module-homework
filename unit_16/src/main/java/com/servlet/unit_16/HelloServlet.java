@@ -1,25 +1,32 @@
 package com.servlet.unit_16;
 
 import java.io.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "a", value = "/a")
+@WebServlet(urlPatterns = "")
 public class HelloServlet extends HttpServlet {
-    private String message;
+    private ClientDB clientDB;
 
-    public void init() {
-        message = "Hello World!";
+    public void init() throws ServletException {
+        clientDB = new ClientDB();
+        super.init();
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        clientDB.addClient(new Client(request.getRemoteAddr(), request.getHeader("User-Agent")), request.getRemoteAddr());
         response.setContentType("text/html");
-
-        // Hello
         PrintWriter out = response.getWriter();
-        out.println("<html><body>");
-        out.println("<h1>" + message + "</h1>");
-        out.println("</body></html>");
+        for (Client client : clientDB.getClientList().values()) {
+            if(client.getIp().equals(request.getRemoteAddr())) {
+                out.println( "<p><b>" + client + "</b></p>");
+            }else{
+                out.println("<p>" + client + "</p>");
+            }
+        }
     }
 
     public void destroy() {
